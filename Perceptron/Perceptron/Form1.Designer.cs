@@ -170,13 +170,13 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(1, 110);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(21, 13);
+            this.label1.Size = new System.Drawing.Size(75, 13);
             this.label1.TabIndex = 13;
-            this.label1.Text = "as:";
+            this.label1.Text = "Interpreted as:";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(25, 110);
+            this.textBox1.Location = new System.Drawing.Point(82, 107);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(36, 20);
             this.textBox1.TabIndex = 14;

@@ -23,55 +23,73 @@ namespace WindowsFormsApplication1
             h = 4;
             grid = new bool[w, h];
             p = new Perceptron();
-            textBox1.Text = "0";
+            textBox1.Text = "";
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //create training set
             bool[,] tg1 =   {{false, true, false},
                             {false, true, false},
                             {false, true, false},
                             {false, true, false}};
-            Trainer t1 = new Trainer(tg1,  1);
+            Trainer t1 = new Trainer(tg1,  1); //1
 
             bool[,] tg2 =   {{false, true, false},
                             {true, true, false},
                             {false, true, false},
                             {true, true, true}};
-            Trainer t2 = new Trainer(tg1, 1);
+            Trainer t2 = new Trainer(tg2, 1); //1
 
             bool[,] tg3 =   {{false, true, false},
                             {true, true, false},
                             {false, true, false},
                             {false, true, false}};
-            Trainer t3 = new Trainer(tg1, 1);
+            Trainer t3 = new Trainer(tg3, 1); //1
 
             bool[,] tg4 =   {{true, true, true},
                             {true, false, true},
                             {true, false, true},
                             {true, true, true}};
-            Trainer t4 = new Trainer(tg1, 0);
+            Trainer t4 = new Trainer(tg4, 0); //0
 
             bool[,] tg5 =   {{false, false, false},
                             {true, true, true},
                             {true, false, true},
                             {true, true, true}};
-            Trainer t5 = new Trainer(tg1, 0);
+            Trainer t5 = new Trainer(tg5, 0); //0
 
             bool[,] tg6 =   {{true, true, true},
                             {true, false, true},
                             {true, true, true},
                             {false, false, false}};
-            Trainer t6 = new Trainer(tg1, 0);
+            Trainer t6 = new Trainer(tg6, 0); //0
 
-            Trainer[] trainingset = { t1, t2, t3, t4, t5, t6 };
+            Trainer[] trainingset = { t1, t2, t3, t4, t5, t6};
             for (int i = 0; i < trainingset.Length; i++)
             {
+                Console.WriteLine("set {0}:", i);
+                //apply rotation
                 trainingset[i].grid = Rotate(trainingset[i].grid);
+                PrintGrid(trainingset[i].grid);
             }
+            //learning time!
             p.Learn(trainingset, w, h);
         }
 
+        private void PrintGrid(bool[,] grid)
+        {
+            for (int i = 0; i < grid.GetLength(0); i++)
+            {
+                for (int j = 0; j < grid.GetLength(1); j++)
+                {
+                    Console.Write(grid[i, j] ? 1 : 0);
+                }
+                Console.WriteLine();
+            }
+        }
+
+        //hax, rotate bool arrays to proper format
         private bool[,] Rotate(bool[,] grid)
         {
             bool[,] res = new bool[3, 4];
@@ -85,6 +103,7 @@ namespace WindowsFormsApplication1
             return res;
         }
 
+        //Eval button
         private void button2_Click(object sender, EventArgs e)
         {
             grid[0, 0] = checkBox1.Checked;
@@ -100,12 +119,28 @@ namespace WindowsFormsApplication1
             grid[1, 3] = checkBox11.Checked;
             grid[2, 3] = checkBox12.Checked;
 
-            Console.WriteLine(p.Evaluate(grid, w, h));
+            int res = p.Evaluate(grid, w, h);
+            Console.WriteLine("Evaluated as: {0}", res);
+            textBox1.Text = Convert.ToString(res);
         }
 
+        //Clear button
         private void button3_Click(object sender, EventArgs e)
         {
+            //reset perceptron
             p = new Perceptron();
+            checkBox1.Checked = false;
+            checkBox2.Checked = false;
+            checkBox3.Checked = false;
+            checkBox4.Checked = false;
+            checkBox5.Checked = false;
+            checkBox6.Checked = false;
+            checkBox7.Checked = false;
+            checkBox8.Checked = false;
+            checkBox9.Checked = false;
+            checkBox10.Checked = false;
+            checkBox11.Checked = false;
+            checkBox12.Checked = false;
         }  
     }
 }
